@@ -4,7 +4,7 @@ namespace WyriHaximus\Travis\LogParser;
 
 use Rx\Observable;
 
-final class Parser extends Observable
+final class Parser
 {
     const LF = "\r\n";
 

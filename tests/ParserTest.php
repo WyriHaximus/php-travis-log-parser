@@ -31,4 +31,16 @@ final class ParserTest extends TestCase
 
         self::assertSame(['abc', 'def'], $array);
     }
+
+    public function testCreateFromObserva()
+    {
+        $contents = Observable::fromArray(['abc', 'def']);
+        $array = [];
+
+        Parser::fromObservable($contents)->toArray()->subscribeCallback(function ($items) use (&$array) {
+            $array = $items;
+        });
+
+        self::assertSame(['abc', 'def'], $array);
+    }
 }
