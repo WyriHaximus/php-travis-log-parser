@@ -9,7 +9,7 @@
     ],
     "require": {
         "php": "^7.0",
-        "reactivex/rxphp": "^1.5"
+        "reactivex/rxphp": "^1.5.2"
     },
     "require-dev": {
         "jakub-onderka/php-console-highlighter": "^0.3.2",
