@@ -9,7 +9,8 @@
     ],
     "require": {
         "php": "^7.0",
-        "reactivex/rxphp": "^1.5.2"
+        "reactivex/rxphp": "^1.5.2",
+        "wyrihaximus/travis-config-parser": "dev-master"
     },
     "require-dev": {
         "jakub-onderka/php-console-highlighter": "^0.3.2",
