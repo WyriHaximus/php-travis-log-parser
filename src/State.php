@@ -30,6 +30,16 @@ final class State
      */
     private $currentStage = self::DEFAULT_STAGE;
 
+    /**
+     * @var Action
+     */
+    private $currentAction;
+
+    public function __construct()
+    {
+        $this->currentAction = new Action('');
+    }
+
     public function withCurrentStage(string $currentStage): State
     {
         $this->ensureStageExists($currentStage);
@@ -42,6 +52,18 @@ final class State
     public function getCurrentStage(): string
     {
         return $this->currentStage;
+    }
+
+    public function withCurrentAction(Action $currentAction): State
+    {
+        $clone = clone $this;
+        $clone->currentAction = $currentAction;
+        return $clone;
+    }
+
+    public function getCurrentAction(): Action
+    {
+        return $this->currentAction;
     }
 
     public function withStage(string $stage, Action ...$actions)

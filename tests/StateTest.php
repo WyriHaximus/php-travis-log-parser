@@ -21,6 +21,21 @@ final class StateTest extends TestCase
         self::assertSame(Stages::INSTALL, $newState->getCurrentStage());
     }
 
+    public function testCurrentAction()
+    {
+        $actionInstall = new Action('composer install');
+        $actionUpdate = new Action('composer update');
+        $state = (new State())->
+            withStage(Stages::INSTALL, $actionInstall)->
+            withStage(Stages::BEFORE_SCRIPT, $actionUpdate)->
+            withCurrentAction($actionInstall);
+        self::assertSame($actionInstall, $state->getCurrentAction());
+        $newState = $state->withCurrentAction($actionUpdate);
+        self::assertNotSame($newState, $state);
+        self::assertSame($actionInstall, $state->getCurrentAction());
+        self::assertSame($actionUpdate, $newState->getCurrentAction());
+    }
+
     public function testCurrentStageNonExistingStage()
     {
         self::expectException(InvalidArgumentException::class);
