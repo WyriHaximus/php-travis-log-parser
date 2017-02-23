@@ -4,43 +4,62 @@ namespace WyriHaximus\Tests\Travis\LogParser;
 
 use PHPUnit\Framework\TestCase;
 use Rx\Observable;
+use WyriHaximus\Travis\ConfigParser\Config;
 use WyriHaximus\Travis\LogParser\Parser;
+use Generator;
 
 final class ParserTest extends TestCase
 {
-    public function testCreateFromString()
+    public function linesProvider(): Generator
     {
-        $contents = "abc\r\ndef";
-        $array = [];
+        yield [
+            "abc\r\n",
+            ['abc'],
+        ];
 
-        Parser::fromString($contents)->toArray()->subscribeCallback(function ($items) use (&$array) {
-            $array = $items;
-        });
+        yield [
+            "abc\r\ndef\r\n",
+            ['abc', 'def'],
+        ];
 
-        self::assertSame(['abc', 'def'], $array);
+        $randomBytes = bin2hex(random_bytes(256));
+        yield [
+            "abc\r\ndef\r\n" . $randomBytes . "\r\n",
+            ['abc', 'def', $randomBytes],
+        ];
     }
 
-    public function testCreateFromObservable()
+    /**
+     * @dataProvider linesProvider
+     */
+    public function testCreateFromString(string $contents, array $lines)
     {
-        $contents = Observable::fromArray(['abc', 'def']);
         $array = [];
 
-        Parser::fromObservable($contents)->toArray()->subscribeCallback(function ($items) use (&$array) {
+        Parser::fromString(
+            $contents,
+            new Config([])
+        )->toArray()->subscribeCallback(function ($items) use (&$array) {
             $array = $items;
         });
 
-        self::assertSame(['abc', 'def'], $array);
+        self::assertSame($lines, $array);
     }
 
-    public function testCreateFromObserva()
+    /**
+     * @dataProvider linesProvider
+     */
+    public function testCreateFromObservable(string $contents, array $lines)
     {
-        $contents = Observable::fromArray(['abc', 'def']);
         $array = [];
 
-        Parser::fromObservable($contents)->toArray()->subscribeCallback(function ($items) use (&$array) {
+        Parser::fromObservable(
+            Observable::fromArray(str_split($contents)),
+            new Config([])
+        )->toArray()->subscribeCallback(function ($items) use (&$array) {
             $array = $items;
         });
 
-        self::assertSame(['abc', 'def'], $array);
+        self::assertSame($lines, $array);
     }
 }
