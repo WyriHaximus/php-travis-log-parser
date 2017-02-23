@@ -2,6 +2,7 @@
 
 namespace WyriHaximus\Travis\LogParser;
 
+use InvalidArgumentException;
 use WyriHaximus\Travis\ConfigParser\Action;
 
 final class State
@@ -21,6 +22,8 @@ final class State
         Stages::AFTER_FAILURE  => [],
         Stages::AFTER_SCRIPT   => [],
     ];
+
+    private $actionToStageMap = [];
 
     /**
      * @var string
@@ -47,6 +50,14 @@ final class State
 
         $clone = clone $this;
         $clone->stages[$stage] = $actions;
+        foreach ($this->actionToStageMap as $actionCommand => $actionStage) {
+            if ($actionStage === $stage) {
+                unset($clone->actionToStageMap[$actionCommand]);
+            }
+        }
+        foreach ($actions as $action) {
+            $clone->actionToStageMap[(string)$action] = $stage;
+        }
         return $clone;
     }
 
@@ -72,10 +83,22 @@ final class State
         return $stages;
     }
 
+    public function getStageByAction(Action $action): string
+    {
+        $action = (string)$action;
+        foreach ($this->actionToStageMap as $actionCommand => $stage) {
+            if ($actionCommand === $action) {
+                return $stage;
+            }
+        }
+
+        throw new InvalidArgumentException('No stage found for action "' . $action . '"');
+    }
+
     private function ensureStageExists(string $stage)
     {
         if (!isset($this->stages[$stage])) {
-            throw new \InvalidArgumentException('Stage "' . $stage . '" doesn\'t exist"');
+            throw new InvalidArgumentException('Stage "' . $stage . '" doesn\'t exist"');
         }
     }
 }

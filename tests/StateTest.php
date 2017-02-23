@@ -2,10 +2,10 @@
 
 namespace WyriHaximus\Tests\Travis\LogParser;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Rx\Observable;
 use WyriHaximus\Travis\ConfigParser\Action;
-use WyriHaximus\Travis\LogParser\Parser;
 use WyriHaximus\Travis\LogParser\Stages;
 use WyriHaximus\Travis\LogParser\State;
 
@@ -23,7 +23,7 @@ final class StateTest extends TestCase
 
     public function testCurrentStageNonExistingStage()
     {
-        self::expectException(\InvalidArgumentException::class);
+        self::expectException(InvalidArgumentException::class);
 
         (new State())->withCurrentStage('foo.bar');
     }
@@ -55,15 +55,40 @@ final class StateTest extends TestCase
 
     public function testGetStagesWithActions()
     {
-        $action = new Action('composer install');
-        $state = (new State())->withStage(Stages::INSTALL, $action);
+        $actionInstall = new Action('composer install');
+        $actionUpdate = new Action('composer update');
+        $state = (new State())->withStage(Stages::INSTALL, $actionInstall);
         self::assertSame(
             [
                 Stages::INSTALL => [
-                    $action,
+                    $actionInstall,
                 ],
             ],
             $state->getStagesWithActions()
         );
+        $state = $state->withStage(Stages::INSTALL, $actionUpdate);
+        self::assertSame(
+            [
+                Stages::INSTALL => [
+                    $actionUpdate,
+                ],
+            ],
+            $state->getStagesWithActions()
+        );
+    }
+
+    public function testGetStageByAction()
+    {
+        $action = new Action('composer install');
+        $state = (new State())->withStage(Stages::INSTALL, $action);
+
+        self::assertSame(Stages::INSTALL, $state->getStageByAction($action));
+    }
+
+    public function testGetStageByActionException()
+    {
+        self::expectException(InvalidArgumentException::class);
+
+        (new State())->getStageByAction(new Action('composer install'));
     }
 }
