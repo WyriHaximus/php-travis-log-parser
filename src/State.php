@@ -7,23 +7,33 @@ use WyriHaximus\Travis\ConfigParser\Action;
 
 final class State
 {
-    const DEFAULT_STAGE = Stages::BEFORE_INSTALL;
+    const DEFAULT_STAGE = Stages::NOT_STARTED_YET;
 
     /**
      * @var Action[][]
      */
     private $stages = [
-        Stages::BEFORE_INSTALL => [],
-        Stages::INSTALL        => [],
-        Stages::BEFORE_SCRIPT  => [],
-        Stages::SCRIPT         => [],
-        Stages::BEFORE_CACHE   => [],
-        Stages::AFTER_SUCCESS  => [],
-        Stages::AFTER_FAILURE  => [],
-        Stages::AFTER_SCRIPT   => [],
+        Stages::NOT_STARTED_YET => [],
+        Stages::BEFORE_INSTALL  => [],
+        Stages::INSTALL         => [],
+        Stages::BEFORE_SCRIPT   => [],
+        Stages::SCRIPT          => [],
+        Stages::BEFORE_CACHE    => [],
+        Stages::AFTER_SUCCESS   => [],
+        Stages::AFTER_FAILURE   => [],
+        Stages::AFTER_SCRIPT    => [],
+        Stages::DONE            => [],
     ];
 
+    /**
+     * @var array
+     */
     private $actionToStageMap = [];
+
+    /**
+     * @var array
+     */
+    private $actionStepInStageMap = [];
 
     /**
      * @var string
@@ -66,20 +76,29 @@ final class State
         return $this->currentAction;
     }
 
+    /**
+     * @param string $stage
+     * @param Action[] ...$actions
+     * @return State
+     */
     public function withStage(string $stage, Action ...$actions)
     {
         $this->ensureStageExists($stage);
 
         $clone = clone $this;
         $clone->stages[$stage] = $actions;
-        foreach ($this->actionToStageMap as $actionCommand => $actionStage) {
+        foreach ($clone->actionToStageMap as $actionCommand => $actionStage) {
             if ($actionStage === $stage) {
                 unset($clone->actionToStageMap[$actionCommand]);
             }
         }
-        foreach ($actions as $action) {
-            $clone->actionToStageMap[(string)$action] = $stage;
+
+        $actionCount = count($actions);
+        for ($i = 0; $i < $actionCount; $i++) {
+            $clone->actionStepInStageMap[(string)$actions[$i]] = $i + 1;
+            $clone->actionToStageMap[(string)$actions[$i]] = $stage;
         }
+
         return $clone;
     }
 
@@ -115,6 +134,46 @@ final class State
         }
 
         throw new InvalidArgumentException('No stage found for action "' . $action . '"');
+    }
+
+    public function getSummary(): array
+    {
+        $summary = [];
+        $currentStageFound = false;
+
+        foreach ($this->stages as $stage => $actions) {
+            if ($currentStageFound === false && $stage !== $this->currentStage) {
+                $summary[$stage] = [
+                    'stage' => StageState::COMPLETED,
+                    'steps' => count($actions),
+                    'step' => count($actions),
+                ];
+                continue;
+            }
+
+            if ($currentStageFound === false && $stage === $this->currentStage) {
+                $summary[$stage] = [
+                    'stage' => StageState::RUNNING,
+                    'steps' => count($actions),
+                    'step' => $this->getCurrentStep(),
+                ];
+                $currentStageFound = true;
+                continue;
+            }
+
+            $summary[$stage] = [
+                'stage' => StageState::WAITING,
+                'steps' => count($actions),
+                'step' => 0,
+            ];
+        }
+
+        return $summary;
+    }
+
+    public function getCurrentStep()
+    {
+        return $this->actionStepInStageMap[(string)$this->currentAction] ?? 0;
     }
 
     private function ensureStageExists(string $stage)

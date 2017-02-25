@@ -7,6 +7,7 @@ use PHPUnit\Framework\TestCase;
 use Rx\Observable;
 use WyriHaximus\Travis\ConfigParser\Action;
 use WyriHaximus\Travis\LogParser\Stages;
+use WyriHaximus\Travis\LogParser\StageState;
 use WyriHaximus\Travis\LogParser\State;
 
 final class StateTest extends TestCase
@@ -105,5 +106,138 @@ final class StateTest extends TestCase
         self::expectException(InvalidArgumentException::class);
 
         (new State())->getStageByAction(new Action('composer install'));
+    }
+
+    public function testGetSummary()
+    {
+        $action = new Action('composer install');
+        $state = (new State())->
+            withStage(Stages::INSTALL, $action);
+
+        self::assertSame(
+            [
+                Stages::NOT_STARTED_YET => [
+                    'stage' => StageState::RUNNING,
+                    'steps' => 0,
+                    'step' => 0,
+                ],
+                Stages::BEFORE_INSTALL  => [
+                    'stage' => StageState::WAITING,
+                    'steps' => 0,
+                    'step' => 0,
+                ],
+                Stages::INSTALL         => [
+                    'stage' => StageState::WAITING,
+                    'steps' => 1,
+                    'step' => 0,
+                ],
+                Stages::BEFORE_SCRIPT   => [
+                    'stage' => StageState::WAITING,
+                    'steps' => 0,
+                    'step' => 0,
+                ],
+                Stages::SCRIPT          => [
+                    'stage' => StageState::WAITING,
+                    'steps' => 0,
+                    'step' => 0,
+                ],
+                Stages::BEFORE_CACHE    => [
+                    'stage' => StageState::WAITING,
+                    'steps' => 0,
+                    'step' => 0,
+                ],
+                Stages::AFTER_SUCCESS   => [
+                    'stage' => StageState::WAITING,
+                    'steps' => 0,
+                    'step' => 0,
+                ],
+                Stages::AFTER_FAILURE   => [
+                    'stage' => StageState::WAITING,
+                    'steps' => 0,
+                    'step' => 0,
+                ],
+                Stages::AFTER_SCRIPT    => [
+                    'stage' => StageState::WAITING,
+                    'steps' => 0,
+                    'step' => 0,
+                ],
+                Stages::DONE            => [
+                    'stage' => StageState::WAITING,
+                    'steps' => 0,
+                    'step' => 0,
+                ],
+            ],
+            $state->getSummary()
+        );
+
+        $state = $state->withCurrentStage(Stages::INSTALL)->
+            withCurrentAction($action);
+
+        self::assertSame(
+            [
+                Stages::NOT_STARTED_YET => [
+                    'stage' => StageState::COMPLETED,
+                    'steps' => 0,
+                    'step' => 0,
+                ],
+                Stages::BEFORE_INSTALL  => [
+                    'stage' => StageState::COMPLETED,
+                    'steps' => 0,
+                    'step' => 0,
+                ],
+                Stages::INSTALL         => [
+                    'stage' => StageState::RUNNING,
+                    'steps' => 1,
+                    'step' => 1,
+                ],
+                Stages::BEFORE_SCRIPT   => [
+                    'stage' => StageState::WAITING,
+                    'steps' => 0,
+                    'step' => 0,
+                ],
+                Stages::SCRIPT          => [
+                    'stage' => StageState::WAITING,
+                    'steps' => 0,
+                    'step' => 0,
+                ],
+                Stages::BEFORE_CACHE    => [
+                    'stage' => StageState::WAITING,
+                    'steps' => 0,
+                    'step' => 0,
+                ],
+                Stages::AFTER_SUCCESS   => [
+                    'stage' => StageState::WAITING,
+                    'steps' => 0,
+                    'step' => 0,
+                ],
+                Stages::AFTER_FAILURE   => [
+                    'stage' => StageState::WAITING,
+                    'steps' => 0,
+                    'step' => 0,
+                ],
+                Stages::AFTER_SCRIPT    => [
+                    'stage' => StageState::WAITING,
+                    'steps' => 0,
+                    'step' => 0,
+                ],
+                Stages::DONE            => [
+                    'stage' => StageState::WAITING,
+                    'steps' => 0,
+                    'step' => 0,
+                ],
+            ],
+            $state->getSummary()
+        );
+    }
+
+    public function testGetCurrentStep()
+    {
+        $action = new Action('composer install');
+        $state = (new State())->
+            withStage(Stages::INSTALL, $action)->
+            withCurrentStage(Stages::INSTALL)->
+            withCurrentAction($action);
+
+        self::assertSame(1, $state->getCurrentStep());
     }
 }
