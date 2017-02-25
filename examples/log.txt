@@ -1,0 +1,276 @@
+travis_fold:start:worker_info[0K[33;1mWorker information[0m
+hostname: i-0a555cb-precise-production-2-worker-org-docker.travisci.net:cafc7cb9-36ae-4587-8cfa-24a20e7fba31
+version: v2.5.0 https://github.com/travis-ci/worker/tree/da3a43228dffc0fcca5a46569ca786b22991979f
+instance: 2388fb8:travis:php
+startup: 2.06943723s
+travis_fold:end:worker_info[0Ktravis_fold:start:system_info[0K[33;1mBuild system information[0m
+Build language: php
+Build group: stable
+Build dist: precise
+Build id: 203902360
+Job id: 203902369
+travis-build version: 6fa97f65a
+[34m[1mBuild image provisioning date and time[0m
+Thu Feb  5 15:09:33 UTC 2015
+[34m[1mOperating System Details[0m
+Distributor ID:	Ubuntu
+Description:	Ubuntu 12.04.5 LTS
+Release:	12.04
+Codename:	precise
+[34m[1mLinux Version[0m
+3.13.0-29-generic
+[34m[1mCookbooks Version[0m
+a68419e https://github.com/travis-ci/travis-cookbooks/tree/a68419e
+[34m[1mGCC version[0m
+gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3
+Copyright (C) 2011 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+[34m[1mLLVM version[0m
+clang version 3.4 (tags/RELEASE_34/final)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+[34m[1mPre-installed Ruby versions[0m
+ruby-1.9.3-p551
+[34m[1mPre-installed Node.js versions[0m
+v0.10.36
+[34m[1mPre-installed Go versions[0m
+1.4.1
+[34m[1mRedis version[0m
+redis-server 2.8.19
+[34m[1mriak version[0m
+2.0.2
+[34m[1mMongoDB version[0m
+MongoDB 2.4.12
+[34m[1mCouchDB version[0m
+couchdb 1.6.1
+[34m[1mNeo4j version[0m
+1.9.4
+[34m[1mRabbitMQ Version[0m
+3.4.3
+[34m[1mElasticSearch version[0m
+1.4.0
+[34m[1mInstalled Sphinx versions[0m
+2.0.10
+2.1.9
+2.2.6
+[34m[1mDefault Sphinx version[0m
+2.2.6
+[34m[1mInstalled Firefox version[0m
+firefox 31.0esr
+[34m[1mPhantomJS version[0m
+1.9.8
+[34m[1mant -version[0m
+Apache Ant(TM) version 1.8.2 compiled on December 3 2011
+[34m[1mmvn -version[0m
+Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
+Maven home: /usr/local/maven
+Java version: 1.7.0_76, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-oracle/jre
+Default locale: en_US, platform encoding: ANSI_X3.4-1968
+OS name: "linux", version: "3.13.0-29-generic", arch: "amd64", family: "unix"
+travis_fold:end:system_info[0K
+W: Size of file /var/lib/apt/lists/dl.hhvm.com_ubuntu_dists_precise_main_binary-amd64_Packages.gz is not what the server reported 2047 2461
+W: Size of file /var/lib/apt/lists/us.archive.ubuntu.com_ubuntu_dists_precise-updates_restricted_binary-amd64_Packages.gz is not what the server reported 19578 20785
+W: Size of file /var/lib/apt/lists/us.archive.ubuntu.com_ubuntu_dists_precise-updates_restricted_binary-i386_Packages.gz is not what the server reported 19540 20707
+W: Size of file /var/lib/apt/lists/us.archive.ubuntu.com_ubuntu_dists_precise-backports_multiverse_source_Sources.gz is not what the server reported 5886 5888
+W: Size of file /var/lib/apt/lists/ppa.launchpad.net_travis-ci_zero-mq_ubuntu_dists_precise_main_binary-amd64_Packages.gz is not what the server reported 832 1195
+W: Size of file /var/lib/apt/lists/ppa.launchpad.net_ubuntugis_ppa_ubuntu_dists_precise_main_binary-amd64_Packages.gz is not what the server reported 33645 36677
+W: Size of file /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_precise-security_restricted_binary-amd64_Packages.gz is not what the server reported 13782 14904
+W: Size of file /var/lib/apt/lists/ppa.launchpad.net_ubuntugis_ppa_ubuntu_dists_precise_main_binary-i386_Packages.gz is not what the server reported 33703 36733
+W: Size of file /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_precise-security_restricted_binary-i386_Packages.gz is not what the server reported 13762 14885
+travis_fold:start:fix.CVE-2015-7547[0K$ export DEBIAN_FRONTEND=noninteractive
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following extra packages will be installed:
+  libc-bin libc-dev-bin libc6-dev
+Suggested packages:
+  glibc-doc
+The following packages will be upgraded:
+  libc-bin libc-dev-bin libc6 libc6-dev
+4 upgraded, 0 newly installed, 0 to remove and 262 not upgraded.
+Need to get 8,840 kB of archives.
+After this operation, 14.3 kB disk space will be freed.
+Get:1 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main libc6-dev amd64 2.15-0ubuntu10.15 [2,943 kB]
+Get:2 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main libc-dev-bin amd64 2.15-0ubuntu10.15 [84.7 kB]
+Get:3 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main libc-bin amd64 2.15-0ubuntu10.15 [1,177 kB]
+Get:4 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main libc6 amd64 2.15-0ubuntu10.15 [4,636 kB]
+Fetched 8,840 kB in 0s (33.5 MB/s)
+Preconfiguring packages ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 70845 files and directories currently installed.)
+Preparing to replace libc6-dev 2.15-0ubuntu10.10 (using .../libc6-dev_2.15-0ubuntu10.15_amd64.deb) ...
+Unpacking replacement libc6-dev ...
+Preparing to replace libc-dev-bin 2.15-0ubuntu10.10 (using .../libc-dev-bin_2.15-0ubuntu10.15_amd64.deb) ...
+Unpacking replacement libc-dev-bin ...
+Preparing to replace libc-bin 2.15-0ubuntu10.10 (using .../libc-bin_2.15-0ubuntu10.15_amd64.deb) ...
+Unpacking replacement libc-bin ...
+Processing triggers for man-db ...
+Setting up libc-bin (2.15-0ubuntu10.15) ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 70844 files and directories currently installed.)
+Preparing to replace libc6 2.15-0ubuntu10.10 (using .../libc6_2.15-0ubuntu10.15_amd64.deb) ...
+Unpacking replacement libc6 ...
+Setting up libc6 (2.15-0ubuntu10.15) ...
+Setting up libc-dev-bin (2.15-0ubuntu10.15) ...
+Setting up libc6-dev (2.15-0ubuntu10.15) ...
+Processing triggers for libc-bin ...
+ldconfig deferred processing now taking place
+travis_fold:end:fix.CVE-2015-7547[0Ktravis_fold:start:git.checkout[0Ktravis_time:start:08adc040[0K$ git clone --depth=50 --branch=master https://github.com/WyriHaximus/php-travis-log-parser.git WyriHaximus/php-travis-log-parser
+Cloning into 'WyriHaximus/php-travis-log-parser'...
+remote: Counting objects: 39, done.[K
+remote: Compressing objects:   3% (1/26)   [Kremote: Compressing objects:   7% (2/26)   [Kremote: Compressing objects:  11% (3/26)   [Kremote: Compressing objects:  15% (4/26)   [Kremote: Compressing objects:  19% (5/26)   [Kremote: Compressing objects:  23% (6/26)   [Kremote: Compressing objects:  26% (7/26)   [Kremote: Compressing objects:  30% (8/26)   [Kremote: Compressing objects:  34% (9/26)   [Kremote: Compressing objects:  38% (10/26)   [Kremote: Compressing objects:  42% (11/26)   [Kremote: Compressing objects:  46% (12/26)   [Kremote: Compressing objects:  50% (13/26)   [Kremote: Compressing objects:  53% (14/26)   [Kremote: Compressing objects:  57% (15/26)   [Kremote: Compressing objects:  61% (16/26)   [Kremote: Compressing objects:  65% (17/26)   [Kremote: Compressing objects:  69% (18/26)   [Kremote: Compressing objects:  73% (19/26)   [Kremote: Compressing objects:  76% (20/26)   [Kremote: Compressing objects:  80% (21/26)   [Kremote: Compressing objects:  84% (22/26)   [Kremote: Compressing objects:  88% (23/26)   [Kremote: Compressing objects:  92% (24/26)   [Kremote: Compressing objects:  96% (25/26)   [Kremote: Compressing objects: 100% (26/26)   [Kremote: Compressing objects: 100% (26/26), done.[K
+remote: Total 39 (delta 10), reused 35 (delta 10), pack-reused 0[K
+Unpacking objects:   2% (1/39)   Unpacking objects:   5% (2/39)   Unpacking objects:   7% (3/39)   Unpacking objects:  10% (4/39)   Unpacking objects:  12% (5/39)   Unpacking objects:  15% (6/39)   Unpacking objects:  17% (7/39)   Unpacking objects:  20% (8/39)   Unpacking objects:  23% (9/39)   Unpacking objects:  25% (10/39)   Unpacking objects:  28% (11/39)   Unpacking objects:  30% (12/39)   Unpacking objects:  33% (13/39)   Unpacking objects:  35% (14/39)   Unpacking objects:  38% (15/39)   Unpacking objects:  41% (16/39)   Unpacking objects:  43% (17/39)   Unpacking objects:  46% (18/39)   Unpacking objects:  48% (19/39)   Unpacking objects:  51% (20/39)   Unpacking objects:  53% (21/39)   Unpacking objects:  56% (22/39)   Unpacking objects:  58% (23/39)   Unpacking objects:  61% (24/39)   Unpacking objects:  64% (25/39)   Unpacking objects:  66% (26/39)   Unpacking objects:  69% (27/39)   Unpacking objects:  71% (28/39)   Unpacking objects:  74% (29/39)   Unpacking objects:  76% (30/39)   Unpacking objects:  79% (31/39)   Unpacking objects:  82% (32/39)   Unpacking objects:  84% (33/39)   Unpacking objects:  87% (34/39)   Unpacking objects:  89% (35/39)   Unpacking objects:  92% (36/39)   Unpacking objects:  94% (37/39)   Unpacking objects:  97% (38/39)   Unpacking objects: 100% (39/39)   Unpacking objects: 100% (39/39), done.
+Checking connectivity... done.
+
+travis_time:end:08adc040:start=1487699790321539468,finish=1487699790676279819,duration=354740351[0K$ cd WyriHaximus/php-travis-log-parser
+$ git checkout -qf 3440824e2a009dc51522f774740574b5d87f2b3a
+travis_fold:end:git.checkout[0K
+[33;1mThis job is running on container-based infrastructure, which does not allow use of 'sudo', setuid and setguid executables.[0m
+[33;1mIf you require sudo, add 'sudo: required' to your .travis.yml[0m
+[33;1mSee https://docs.travis-ci.com/user/workers/container-based-infrastructure/ for details.[0m
+
+[33;1mSetting environment variables from .travis.yml[0m
+$ export dependencies=highest
+
+travis_time:start:097897cd[0K$ phpenv global nightly 2>/dev/null
+
+travis_time:end:097897cd:start=1487699794468695258,finish=1487699794491262473,duration=22567215[0K[33;1mnightly is not pre-installed; installing[0m
+[33;1mDownloading archive: https://s3.amazonaws.com/travis-php-archives/binaries/ubuntu/12.04/x86_64/php-nightly.tar.bz2[0m
+travis_time:start:017cac08[0K$ curl -s -o archive.tar.bz2 $archive_url && tar xjf archive.tar.bz2 --directory /
+
+travis_time:end:017cac08:start=1487699794601704733,finish=1487699805571072861,duration=10969368128[0Ktravis_time:start:0bb7e179[0K
+travis_time:end:0bb7e179:start=1487699805575788589,finish=1487699805593507855,duration=17719266[0Ktravis_time:start:00502bd7[0K$ phpenv global nightly
+
+travis_time:end:00502bd7:start=1487699805598539528,finish=1487699805620008716,duration=21469188[0Ktravis_time:start:0a3416d8[0K$ composer self-update 1.0.0
+Updating to version [32m1.0.0[39m (stable channel).
+    Downloading: [33mConnecting...[39m Downloading: [33m100%[39m         
+Use [32mcomposer self-update --rollback[39m to return to version 1.3.2
+
+travis_time:end:0a3416d8:start=1487699805686343465,finish=1487699807502190232,duration=1815846767[0Ktravis_time:start:0115caea[0K$ composer self-update
+Updating to version [32m1.3.2[39m.
+    Downloading: [33mConnecting...[39m    Downloading: [33m100%[39m         
+Use [32mcomposer self-update --rollback[39m to return to version 1.0.0
+
+travis_time:end:0115caea:start=1487699807507184170,finish=1487699809320721845,duration=1813537675[0Ktravis_fold:start:cache.1[0KSetting up build cache
+$ export CASHER_DIR=$HOME/.casher
+travis_time:start:078f9380[0K$ Installing caching utilities
+
+travis_time:end:078f9380:start=1487699809667697749,finish=1487699809697709823,duration=30012074[0Ktravis_time:start:0db16bf0[0K
+travis_time:end:0db16bf0:start=1487699809704726525,finish=1487699809709302474,duration=4575949[0Ktravis_time:start:048f0f90[0K[32;1mattempting to download cache archive[0m
+[32;1mfetching master/cache-linux-precise-4821abcb08ab4c38bde1b23afcd82e724cb35fdba297611b28f39f9c4670d8c8--php-nightly.tgz[0m
+[32;1mfound cache[0m
+
+travis_time:end:048f0f90:start=1487699809715270648,finish=1487699810494819452,duration=779548804[0Ktravis_time:start:231abd02[0K
+travis_time:end:231abd02:start=1487699810499772007,finish=1487699810504607684,duration=4835677[0Ktravis_time:start:085950e0[0K[32;1madding /home/travis/.composer/cache/files to cache[0m
+
+travis_time:end:085950e0:start=1487699810509706381,finish=1487699811984524009,duration=1474817628[0Ktravis_fold:end:cache.1[0K$ php --version
+PHP 7.2.0-dev (cli) (built: Feb 20 2017 22:45:51) ( ZTS )
+Copyright (c) 1997-2017 The PHP Group
+Zend Engine v3.2.0-dev, Copyright (c) 1998-2017 Zend Technologies
+    with Zend OPcache v7.2.0-dev, Copyright (c) 1999-2017, by Zend Technologies
+$ composer --version
+[32mComposer[39m version [33m1.3.2[39m 2017-01-27 18:23:41
+[0m
+travis_fold:start:install.1[0Ktravis_time:start:0aff79d6[0K$ if [ -z "$dependencies" ]; then composer install --prefer-dist; fi;
+
+travis_time:end:0aff79d6:start=1487699812305234559,finish=1487699812309208935,duration=3974376[0Ktravis_fold:end:install.1[0Ktravis_fold:start:install.2[0Ktravis_time:start:0e78f957[0K$ if [ "$dependencies" = "lowest" ]; then composer update --prefer-lowest --prefer-dist -n; fi;
+
+travis_time:end:0e78f957:start=1487699812314764766,finish=1487699812319351873,duration=4587107[0Ktravis_fold:end:install.2[0Ktravis_fold:start:install.3[0Ktravis_time:start:2376a01e[0K$ if [ "$dependencies" = "highest" ]; then composer update --prefer-dist -n; fi;
+[32mLoading composer repositories with package information[39m
+[32mUpdating dependencies (including require-dev)[39m
+[32mPackage operations: 29 installs, 0 updates, 0 removals[39m
+  - Installing [32mreactivex/rxphp[39m ([33m1.5.2[39m) Loading from cache
+  - Installing [32mjakub-onderka/php-console-color[39m ([33m0.1[39m) Loading from cache
+  - Installing [32mjakub-onderka/php-console-highlighter[39m ([33mv0.3.2[39m) Loading from cache
+  - Installing [32mjakub-onderka/php-parallel-lint[39m ([33mv0.9.2[39m) Loading from cache
+  - Installing [32msebastian/version[39m ([33m2.0.1[39m) Loading from cache
+  - Installing [32msebastian/resource-operations[39m ([33m1.0.0[39m) Loading from cache
+  - Installing [32msebastian/recursion-context[39m ([33m2.0.0[39m) Loading from cache
+  - Installing [32msebastian/object-enumerator[39m ([33m2.0.1[39m) Loading from cache
+  - Installing [32msebastian/global-state[39m ([33m1.1.1[39m) Loading from cache
+  - Installing [32msebastian/exporter[39m ([33m2.0.0[39m) Loading from cache
+  - Installing [32msebastian/environment[39m ([33m2.0.0[39m) Loading from cache
+  - Installing [32msebastian/diff[39m ([33m1.4.1[39m) Loading from cache
+  - Installing [32msebastian/comparator[39m ([33m1.2.4[39m) Loading from cache
+  - Installing [32mdoctrine/instantiator[39m ([33m1.0.5[39m) Loading from cache
+  - Installing [32mphpunit/php-text-template[39m ([33m1.2.1[39m) Loading from cache
+  - Installing [32mphpunit/phpunit-mock-objects[39m ([33m4.0.0[39m) Loading from cache
+  - Installing [32mphpunit/php-timer[39m ([33m1.0.8[39m) Loading from cache
+  - Installing [32mphpunit/php-file-iterator[39m ([33m1.4.2[39m) Loading from cache
+  - Installing [32msebastian/code-unit-reverse-lookup[39m ([33m1.0.0[39m) Loading from cache
+  - Installing [32mphpunit/php-token-stream[39m ([33m1.4.9[39m) Loading from cache
+  - Installing [32mphpunit/php-code-coverage[39m ([33m5.0.0[39m) Loading from cache
+  - Installing [32mwebmozart/assert[39m ([33m1.2.0[39m) Loading from cache
+  - Installing [32mphpdocumentor/reflection-common[39m ([33m1.0[39m) Loading from cache
+  - Installing [32mphpdocumentor/type-resolver[39m ([33m0.2.1[39m) Loading from cache
+  - Installing [32mphpdocumentor/reflection-docblock[39m ([33m3.1.1[39m) Loading from cache
+  - Installing [32mphpspec/prophecy[39m ([33mv1.6.2[39m) Loading from cache
+  - Installing [32mmyclabs/deep-copy[39m ([33m1.6.0[39m) Loading from cache
+  - Installing [32mphpunit/phpunit[39m ([33m6.0.7[39m) Loading from cache
+  - Installing [32msquizlabs/php_codesniffer[39m ([33m2.8.0[39m) Loading from cache
+reactivex/rxphp suggests installing react/event-loop (For using event-loop based scheduling.)
+reactivex/rxphp suggests installing react/promise (For converting promises to and from observables.)
+sebastian/global-state suggests installing ext-uopz (*)
+phpunit/phpunit suggests installing phpunit/php-invoker (^1.1)
+phpunit/phpunit suggests installing ext-xdebug (*)
+[32mGenerating autoload files[39m
+
+travis_time:end:2376a01e:start=1487699812328198897,finish=1487699827779630258,duration=15451431361[0Ktravis_fold:end:install.3[0Ktravis_fold:start:install.4[0Ktravis_time:start:04759966[0K$ composer show
+doctrine/instantiator                
+jakub-onderka/php-console-color      
+jakub-onderka/php-console-highlighter
+jakub-onderka/php-parallel-lint      
+myclabs/deep-copy                    
+phpdocumentor/reflection-common      
+phpdocumentor/reflection-docblock    
+phpdocumentor/type-resolver          
+phpspec/prophecy                     
+phpunit/php-code-coverage            
+phpunit/php-file-iterator            
+phpunit/php-text-template            
+phpunit/php-timer                    
+phpunit/php-token-stream             
+phpunit/phpunit                      
+phpunit/phpunit-mock-objects         
+reactivex/rxphp                      
+sebastian/code-unit-reverse-lookup   
+sebastian/comparator                 
+sebastian/diff                       
+sebastian/environment                
+sebastian/exporter                   
+sebastian/global-state               
+sebastian/object-enumerator          
+sebastian/recursion-context          
+sebastian/resource-operations        
+sebastian/version                    
+squizlabs/php_codesniffer            
+webmozart/assert                     
+
+travis_time:end:04759966:start=1487699827784811220,finish=1487699828004305038,duration=219493818[0Ktravis_fold:end:install.4[0Ktravis_time:start:008738f8[0K$ make travis
+if [ ! -d vendor ]; then composer install; fi;
+./vendor/bin/phpcs --standard=PSR2 src/
+./vendor/bin/phpunit --coverage-text --coverage-clover ./build/logs/clover.xml
+PHPUnit 6.0.7 by Sebastian Bergmann and contributors.
+
+Error:         No code coverage driver is available
+
+..                                                                  2 / 2 (100%)
+
+Time: 860 ms, Memory: 4.00MB
+
+[30;42mOK (2 tests, 2 assertions)[0m
+
+travis_time:end:008738f8:start=1487699828009988735,finish=1487699829203163109,duration=1193174374[0K
+[32;1mThe command "make travis" exited with 0.[0m
+travis_fold:start:cache.2[0Kstore build cache
+travis_time:start:3126a537[0K
+travis_time:end:3126a537:start=1487699829210103371,finish=1487699829216440795,duration=6337424[0Ktravis_time:start:040d8630[0K[32;1mnothing changed, not updating cache[0m
+
+travis_time:end:040d8630:start=1487699829221777513,finish=1487699829730729482,duration=508951969[0Ktravis_fold:end:cache.2[0Ktravis_fold:start:after_script[0Ktravis_time:start:0d8921e3[0K$ make travis-coverage
+if [ ! -d vendor ]; then composer install; fi;
+if [ -f ./build/logs/clover.xml ]; then wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=php-clover ./build/logs/clover.xml; fi
+
+travis_time:end:0d8921e3:start=1487699829738564986,finish=1487699829747618381,duration=9053395[0Ktravis_fold:end:after_script[0K
+Done. Your build exited with 0.
