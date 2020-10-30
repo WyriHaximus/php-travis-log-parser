@@ -81,7 +81,7 @@ final class State
      * @param Action[] ...$actions
      * @return State
      */
-    public function withStage(string $stage, Action ...$actions)
+    public function withStage(string $stage, Action ...$actions): State
     {
         $this->ensureStageExists($stage);
 
@@ -176,7 +176,7 @@ final class State
         return $this->actionStepInStageMap[(string)$this->currentAction] ?? 0;
     }
 
-    private function ensureStageExists(string $stage)
+    private function ensureStageExists(string $stage): void
     {
         if (!isset($this->stages[$stage])) {
             throw new InvalidArgumentException('Stage "' . $stage . '" doesn\'t exist"');
